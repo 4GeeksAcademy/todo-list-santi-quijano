@@ -1,26 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
 
-//create your first component
-const Home = () => {
+function Home() {
+	const [tasks, setTasks] = useState([]);
+	const deleteTask = (indexToDelete) => {
+		setTasks((prevTasks) => prevTasks.filter((task, index) => index !== indexToDelete));
+	};
+
 	return (
-		<div className="text-center">
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
+		<div className="container">
+			<h1 className="text-muted">todos</h1>
+			<input type="text" placeholder="What needs to be done?" onKeyDown={(e) => { if (e.code === "Enter") setTasks([e.target.value, ...tasks]); }} />
+			<ul>
+				{tasks.length === 0 && <li>No tasks, add a task</li>}
+				{tasks.map((task, index) => (
+					<li key={index}>
+						<p>{task}</p>
+						<button className="erase" onClick={() => deleteTask(index)}>X</button>
+					</li>
+				))}
+				<li className="list-group-item fontSizeSmall">{tasks.length === 1 ? "1 item" : `${tasks.length} items`}</li>
+			</ul>
+
 		</div>
 	);
-};
-
-export default Home;
+}
+export default Home; 
