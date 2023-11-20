@@ -12,7 +12,7 @@ function Home() {
 			<h1 className="text-muted">todos</h1>
 			<input type="text" placeholder="What needs to be done?" onKeyDown={(e) => { if (e.code === "Enter") setTasks([e.target.value, ...tasks]); }} />
 			<ul>
-				{tasks.length === 0 && <li>No tasks, add a task</li>}
+				{tasks.length === 0 && <li>No tasks, add a task pressing Enter</li>}
 				{tasks.map((task, index) => (
 					<li key={index}>
 						<p>{task}</p>
